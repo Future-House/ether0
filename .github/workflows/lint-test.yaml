@@ -14,7 +14,9 @@ jobs:
     if: github.event_name == 'pull_request' # pre-commit-ci/lite-action only runs here
     strategy:
       matrix:
-        python-version: [3.11, 3.13] # Our min and max supported Python versions
+        # TODO: add Python 3.13 after tensorflow support: https://github.com/tensorflow/tensorflow/issues/78774
+        # and pyonmttok supports Python 3.12+: https://github.com/OpenNMT/Tokenizer/issues/329
+        python-version: [3.11] # Our min supported Python version
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -36,11 +38,16 @@ jobs:
         env:
           HUGGINGFACE_HUB_ACCESS_TOKEN: ${{ secrets.HUGGINGFACE_HUB_ACCESS_TOKEN }}
       - run: uv run pytest -n auto src tests
+      - name: Clear molbloom cache # Work around https://github.com/whitead/molbloom/issues/30
+        run: rm -rf /home/runner/.cache/molbloom
+      - run: uv run pytest -n auto packages/remotes
   lint:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.11, 3.13] # Our min and max supported Python versions
+        # TODO: add Python 3.13 after tensorflow support: https://github.com/tensorflow/tensorflow/issues/78774
+        # and pyonmttok supports Python 3.12+: https://github.com/OpenNMT/Tokenizer/issues/329
+        python-version: [3.11] # Our min supported Python version
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6
@@ -48,6 +55,6 @@ jobs:
           enable-cache: true
       - run: uv python pin ${{ matrix.python-version }}
       - run: uv sync --python-preference=only-managed
-      - run: uv run refurb src tests
-      - run: uv run pylint src tests
+      - run: uv run refurb src tests packages/remotes
+      - run: uv run pylint src tests packages/remotes
       - uses: suzuki-shunsuke/github-action-renovate-config-validator@v1.1.1
