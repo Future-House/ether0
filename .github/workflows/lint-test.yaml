@@ -34,7 +34,6 @@ jobs:
       - run: uv run pytest -n auto
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-          OPENAI_API_KEY: placeholder
   lint:
     runs-on: ubuntu-latest
     strategy:
