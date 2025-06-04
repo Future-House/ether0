@@ -1,0 +1,52 @@
+name: Lint and Test
+
+on:
+  push:
+    branches:
+      - main
+      - renovate/*
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' # pre-commit-ci/lite-action only runs here
+    strategy:
+      matrix:
+        python-version: [3.11, 3.13] # Our min and max supported Python versions
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - uses: pre-commit/action@v3.0.1
+      - uses: pre-commit-ci/lite-action@v1.1.0
+        if: always()
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - run: uv sync
+      - run: uv run pytest -n auto
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          OPENAI_API_KEY: placeholder
+  lint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.11, 3.13] # Our min and max supported Python versions
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - run: uv python pin ${{ matrix.python-version }}
+      - run: uv sync --python-preference=only-managed
+      - run: uv run refurb src
+      - run: uv run pylint src
+      - uses: suzuki-shunsuke/github-action-renovate-config-validator@v1.1.1
