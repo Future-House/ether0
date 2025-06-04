@@ -44,8 +44,13 @@ readme = "README.md"
 requires-python = ">=3.11"
 
 [project.optional-dependencies]
+add-tokens = [
+    "ipykernel",  # For Jupyter notebook support
+    "ipywidgets>=8",  # For Jupyter notebook support, and pin to keep recent
+    "transformers>=4.49",  # Pin to keep recent
+]
 dev = [
-    "ether0[typing]",
+    "ether0[add-tokens,typing]",
     "huggingface-hub[cli]",  # For login inside of CI
     "ipython>=8",  # Pin to keep recent
     "mypy>=1.8",  # For addition of mutable-override

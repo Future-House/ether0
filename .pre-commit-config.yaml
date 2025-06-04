@@ -30,8 +30,11 @@ repos:
       - id: debug-statements
       - id: detect-private-key
       - id: end-of-file-fixer
+        exclude_types: [jinja]
       - id: mixed-line-ending
+        exclude_types: [jinja]
       - id: trailing-whitespace
+        exclude_types: [jinja]
   - repo: https://github.com/pappasam/toml-sort
     rev: v0.24.2
     hooks:
