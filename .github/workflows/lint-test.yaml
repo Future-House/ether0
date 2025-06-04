@@ -31,9 +31,11 @@ jobs:
         with:
           enable-cache: true
       - run: uv sync
-      - run: uv run pytest -n auto
+      - name: Login to Hugging Face Hub
+        run: uv run huggingface-cli login --token $HUGGINGFACE_HUB_ACCESS_TOKEN
         env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          HUGGINGFACE_HUB_ACCESS_TOKEN: ${{ secrets.HUGGINGFACE_HUB_ACCESS_TOKEN }}
+      - run: uv run pytest -n auto
   lint:
     runs-on: ubuntu-latest
     strategy:
