@@ -23,7 +23,17 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
     "Topic :: Scientific/Engineering :: Chemistry",
 ]
-dependencies = []
+dependencies = [
+    "datasets",
+    "exmol>=3.3.0",  # to get fixed functional group names and py.typed
+    "httpx",
+    "huggingface-hub",
+    "molbloom==2.3.4",  # exact pin to be compatible with rings.bloom
+    "pydantic>=2",  # Pin to keep recent
+    "rdkit",
+    "regex",  # For unicode property \p
+    "tenacity",
+]
 description = "Data models, rewards, and utility functions for ether0."
 dynamic = [
     "version",  # Required for setuptools_scm
@@ -35,6 +45,7 @@ requires-python = ">=3.11"
 
 [project.optional-dependencies]
 dev = [
+    "ether0[typing]",
     "huggingface-hub[cli]",  # For login inside of CI
     "ipython>=8",  # Pin to keep recent
     "mypy>=1.8",  # For addition of mutable-override
@@ -47,6 +58,9 @@ dev = [
     "pytest-xdist",
     "refurb>=2",  # Pin to keep recent
     "typeguard",
+]
+typing = [
+    "types-regex",
 ]
 
 [project.urls]
@@ -140,6 +154,20 @@ warn_unused_configs = true
 # Warns about unneeded `# type: ignore` comments.
 warn_unused_ignores = true
 
+[[tool.mypy.overrides]]
+# Suppresses error messages about imports that cannot be resolved.
+ignore_missing_imports = true
+# Per-module configuration options
+module = [
+    "datasets.*",  # SEE: https://github.com/huggingface/datasets/issues/3841
+    "huggingface_hub.*",  # SEE: https://github.com/huggingface/huggingface_hub/issues/1662
+    "molbloom",  # SEE: https://github.com/whitead/molbloom/issues/29
+    "molsol",  # SEE: https://github.com/maykcaldas/molsol/issues/6
+    "onmt.*",
+    "setuptools_scm",  # SEE: https://github.com/pypa/setuptools_scm/issues/501
+    "transformers.*",  # SEE: https://github.com/huggingface/transformers/pull/18485
+]
+
 [tool.pylint]
 
 [tool.pylint.design]
@@ -224,6 +252,11 @@ min-similarity-lines = 10
 # Add the specified `OPTS` to the set of command line arguments as if they had
 # been specified by the user.
 addopts = "--typeguard-packages=ether0 --doctest-modules"
+# List of directories that should be searched for tests when no specific directories,
+# files or test ids are given in the command line when executing pytest from the rootdir
+# directory. File system paths may use shell-style wildcards, including the recursive **
+# pattern.
+testpaths = ["src", "tests"]
 
 [tool.refurb]
 enable_all = true
