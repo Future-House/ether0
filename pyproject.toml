@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 requires = ["setuptools>=64", "setuptools_scm>=8"]
 
 [dependency-groups]
-dev = ["ether0[dev]"]
+dev = ["ether0.remotes[dev]", "ether0[dev]"]
 
 [project]
 authors = [
@@ -130,7 +130,7 @@ explicit_package_bases = true
 # Useful if you'd like to keep stubs in your repo, along with the config file.
 # Multiple paths are always separated with a : or , regardless of the platform.
 # User home directory and environment variables will be expanded.
-mypy_path = "$MYPY_CONFIG_FILE_DIR/src"
+mypy_path = "$MYPY_CONFIG_FILE_DIR/src,$MYPY_CONFIG_FILE_DIR/packages/remotes/src"
 # Comma-separated list of mypy plugins.
 plugins = ["pydantic.mypy"]
 # Use visually nicer output in error messages: use soft word wrap, show source
@@ -256,7 +256,7 @@ addopts = "--typeguard-packages=ether0 --doctest-modules"
 # files or test ids are given in the command line when executing pytest from the rootdir
 # directory. File system paths may use shell-style wildcards, including the recursive **
 # pattern.
-testpaths = ["src", "tests"]
+testpaths = ["packages/remotes", "src", "tests"]
 
 [tool.refurb]
 enable_all = true
@@ -518,3 +518,7 @@ trailing_comma_inline_array = true
 
 [tool.uv.sources]
 ether0 = {workspace = true}
+"ether0.remotes" = {workspace = true}
+
+[tool.uv.workspace]
+members = ["packages/*"]
