@@ -1,0 +1,59 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = ["setuptools>=64", "setuptools_scm>=8"]
+
+[dependency-groups]
+dev = ["ether0.remotes[dev]"]
+
+[project]
+authors = [
+    {email = "hello@futurehouse.org", name = "FutureHouse technical staff"},
+]
+classifiers = [
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: POSIX",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Chemistry",
+]
+dependencies = [
+    "OpenNMT-py==2.3.0",  # Match MolecularTransformer version
+    "fastapi",
+    "molbloom>=2.3.4",  # For nested zinc20 catalog",
+    "molsol>=0.0.3",
+    "numpy>=1.20",  # Pin for numpy typing
+    "pydantic>=2",  # Pin to keep recent
+    "rdkit",
+    "torch<2.6",  # Downpin for weights_only introduction breaking model_builder's load_test_model
+]
+description = "Server code for remotes of ether0"
+dynamic = ["version"]
+license = {file = "LICENSE"}
+name = "ether0.remotes"
+readme = "README.md"
+requires-python = ">=3.11"
+
+[project.optional-dependencies]
+dev = [
+    "ether0",
+    "ether0.remotes[serve]",
+    "tensorboard>=2.19",  # Indirect dependency we pin to keep recent
+]
+serve = ["uvicorn"]
+
+[project.scripts]
+ether0-serve = "ether0.server:main"
+
+[tool.ruff]
+extend = "../../pyproject.toml"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools_scm]
+root = "../.."

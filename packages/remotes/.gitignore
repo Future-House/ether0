@@ -1,0 +1,2 @@
+# Ignore any downloaded PyTorch model (e.g. a MolTrans model)
+src/ether0/*.pt
