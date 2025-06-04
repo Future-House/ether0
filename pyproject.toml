@@ -35,6 +35,7 @@ requires-python = ">=3.11"
 
 [project.optional-dependencies]
 dev = [
+    "huggingface-hub[cli]",  # For login inside of CI
     "ipython>=8",  # Pin to keep recent
     "mypy>=1.8",  # For addition of mutable-override
     "pre-commit>=3.4",  # Pin to keep recent
