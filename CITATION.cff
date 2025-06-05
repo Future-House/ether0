@@ -1,0 +1,66 @@
+---
+cff-version: 1.2.0
+title: "Training a Scientific Reasoning Model for Chemistry"
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+authors:
+  - given-names: Siddharth M.
+    family-names: Narayanan
+  - given-names: James D.
+    family-names: Braza
+  - given-names: Ryan-Rhys
+    family-names: Griffiths
+  - given-names: Albert
+    family-names: Bou
+  - given-names: Geemi P.
+    family-names: Wellawatte
+  - given-names: Mayk
+    family-names: Caldas Ramos
+  - given-names: Ludovico
+    family-names: Mitchener
+  - given-names: Samuel G.
+    family-names: Rodriques
+  - given-names: Andrew D.
+    family-names: White
+identifiers:
+  - type: doi
+    #     value: 10.48550/arXiv.2412.21154
+    description: ArXiv DOI
+  - type: url
+    #     value: https://arxiv.org/abs/2412.21154
+    description: ArXiv abstract
+repository-code: https://github.com/Future-House/ether0
+keywords:
+  - Artificial Intelligence
+  - Chemistry
+  - Computation and Language
+  - Machine Learning
+  - Reasoning Model
+license: Apache-2.0
+preferred-citation:
+  authors:
+    - given-names: Siddharth M.
+      family-names: Narayanan
+    - given-names: James D.
+      family-names: Braza
+    - given-names: Ryan-Rhys
+      family-names: Griffiths
+    - given-names: Albert
+      family-names: Bou
+    - given-names: Geemi P.
+      family-names: Wellawatte
+    - given-names: Mayk
+      family-names: Caldas Ramos
+    - given-names: Ludovico
+      family-names: Mitchener
+    - given-names: Samuel G.
+      family-names: Rodriques
+    - given-names: Andrew D.
+      family-names: White
+  date-published: 2025-06-04
+  doi: 10.48550/arXiv.2412.21154
+  journal: preprint
+  title: "Training a Scientific Reasoning Model for Chemistry"
+  type: article
+#   url: https://arxiv.org/abs/2412.21154
