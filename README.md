@@ -10,7 +10,11 @@
 
 ![ether0 logo](docs/assets/ether0_logo.svg)
 
-ether0: a scientific reasoning model, dataset, and reward functions for chemistry.
+*ether0: a scientific reasoning model, dataset, and reward functions for chemistry.*
+
+# ether0 Reward Model
+
+This repo contains the reward model for evaluating ether0 and similar models, along with utilities for working with the verifiable rewards in [our benchmark](https://huggingface.co/datasets/futurehouse/ether0). 
 
 ## Overview
 
@@ -38,6 +42,8 @@ This repo contains several packages:
 - `ether0.remotes`: server code for ether0 reward functions involving
   exotic packages and/or third party models.
 
+*This repo does not contain training code, although you can find open source repositories like [NeMo-RL](https://github.com/NVIDIA/NeMo-RL) or [Hugging Face TRL](https://github.com/huggingface/trl) that can do the RL phase of our training.*
+
 ### Open Weights
 
 Please see our open-source weights on Hugging Face: https://huggingface.co/futurehouse/ether0
@@ -51,7 +57,7 @@ tokenizer = AutoTokenizer.from_pretrained("futurehouse/ether0")
 
 ### Open Test Set
 
-Please see our open-source test set on Hugging Face: https://huggingface.co/datasets/futurehouse/ether0-benchmark
+Please see our open-source benchmark (test set) on Hugging Face: https://huggingface.co/datasets/futurehouse/ether0-benchmark
 
 ```python
 from datasets import load_dataset
