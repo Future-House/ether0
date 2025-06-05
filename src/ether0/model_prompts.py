@@ -118,6 +118,14 @@ def extract_thought_answer_strict(
     return None, None  # Consider nested answer as a failure
 
 
+LOOSE_XML_ANSWER_USER_PROMPT = (
+    "When answering,"
+    " be sure to place the final answer as"
+    " SMILES notation into XML tags <answer></answer>."
+    " An example is <answer>CCO</answer>."
+)
+
+
 def extract_answer_loose(text: str | None) -> str:
     """
     Extract thought and answer from text using a loose XML pattern.
