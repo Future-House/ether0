@@ -61,6 +61,10 @@ repos:
     rev: 0.7.10
     hooks:
       - id: uv-lock
+  - repo: https://github.com/adamchainz/blacken-docs
+    rev: 1.19.1
+    hooks:
+      - id: blacken-docs
   - repo: https://github.com/jsh9/markdown-toc-creator
     rev: 0.0.10
     hooks:
