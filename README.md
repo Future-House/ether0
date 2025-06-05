@@ -30,7 +30,7 @@ ether0 is a reasoning language model post-trained through a loop of:
 4. SFT on the base model again to make a 'generalist' reasoning model.
 5. RLVR to recover any lost performance and push further in an all-task setting.
 
-![ether0 logo](docs/assets/training_info.png)
+![ether0 training info](docs/assets/training_info.png)
 
 ### Repo Structure
 
