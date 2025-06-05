@@ -481,8 +481,9 @@ def oracle_solubility_eval(
         RewardReason.INVALID_MOL.set_reason(metadata)
         return 0.0
 
-    y_args: tuple[str, str | list[str], float, str] = ast.literal_eval(y)
-    constraint_type, constraint_data, target = y_args[:3]
+    y_args: tuple[str, str | list[str], float | str, str] = ast.literal_eval(y)
+    constraint_type, constraint_data = y_args[:2]
+    target = float(y_args[2])
     # Unused: direction = y_args[3]  # noqa: ERA001
 
     ref_mol: Chem.Mol | None = None

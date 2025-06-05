@@ -91,6 +91,12 @@ if TYPE_CHECKING:
             0.0,
             id="unreasonable-molecule-failure",
         ),
+        pytest.param(
+            "CC(C)(C)Cc1nc(Br)c(S(C)(=O)=O)n1Cc1ccc(-c2ccccc2-c2nn[nH]n2)cc1",
+            "('scaffold', 'c1ccc(-c2nn[nH]n2)c(-c2ccc(Cn3ccnc3)cc2)c1', '-7.790801048278809', 'decrease')",  # noqa: E501
+            0.0,
+            id="eval-has-str-value",
+        ),
     ],
 )
 def test_oracle_solubility_eval(
