@@ -19,10 +19,11 @@ class TestModels:
         assert ex_0.problem_type == "functional-group"
         assert ex_0.ideal == "Cc1ncc([N+](=O)[O-])n1CC(=O)N/N=C/c1ccc([N+](=O)[O-])cc1"
         assert ex_0.unformatted == "C13H12N6O5,['charged', 'nitro']"
-        assert isinstance(ex_0.info, RewardFunctionInfo)
+        assert isinstance(ex_0.solution, RewardFunctionInfo)
+        ex0_sol = ex_0.solution
         assert (
-            (ex_0.info.fxn_name, ex_0.info.answer_info, ex_0.info.problem_type)
-            == tuple(ex_0.info.model_dump().values())
+            (ex0_sol.fxn_name, ex0_sol.answer_info, ex0_sol.problem_type)
+            == tuple(ex0_sol.model_dump().values())
             == (
                 "functional_group_eval",
                 "('C13H12N6O5', ['charged', 'nitro'])",

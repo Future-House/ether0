@@ -88,8 +88,8 @@ class QAExample(BaseModel):
     id: str = Field(description="Unique identifier for this example.")
     problem: str = Field(description="Problem to solve.")
     problem_type: str = Field(description="Problem type, for reference or filtering.")
-    info: RewardFunctionInfo = Field(
-        description="Metadata for the reward function.", alias="solution"
+    solution: RewardFunctionInfo = Field(
+        description="Metadata for the reward function."
     )
     ideal: str | None = Field(
         description=(
