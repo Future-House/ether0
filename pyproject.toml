@@ -49,6 +49,11 @@ add-tokens = [
     "ipywidgets>=8",  # For Jupyter notebook support, and pin to keep recent
     "transformers>=4.49",  # Pin to keep recent
 ]
+baselines = [
+    "fhaviary>=0.19",  # Pin for Python 3.13 compatibility
+    "fhlmi>=0.26",  # Pin for Python 3.13 compatibility
+    "ipython",
+]
 dev = [
     "ether0[add-tokens,typing]",
     "huggingface-hub[cli]",  # For login inside of CI
