@@ -685,7 +685,7 @@ requires-dist = [
     { name = "opennmt-py", specifier = "==2.3.0" },
     { name = "pydantic", specifier = ">=2" },
     { name = "rdkit" },
-    { name = "tensorboard", marker = "extra == 'dev'", specifier = ">=2.19" },
+    { name = "tensorboard", marker = "extra == 'dev'", specifier = ">=2.18" },
     { name = "torch", specifier = "<2.6" },
     { name = "uvicorn", marker = "extra == 'serve'" },
 ]
