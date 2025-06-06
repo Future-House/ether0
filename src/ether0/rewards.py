@@ -19,7 +19,7 @@ from rdkit.rdBase import BlockLogs
 
 from ether0.clients import fetch_forward_rxn, fetch_purchasable, fetch_solubility
 from ether0.data import is_reasonable_fp, is_reasonable_ring_system, mol_from_smiles
-from ether0.model_prompts import extract_thought_answer_strict
+from ether0.model_prompts import extract_answer_loose, extract_thought_answer_strict
 from ether0.models import RewardFunctionInfo, RewardReason
 
 block = BlockLogs()
@@ -702,14 +702,11 @@ def accuracy_reward(
         reward_info = RewardFunctionInfo.model_validate(info)
         fxn_name, answer_info, problem_type = tuple(reward_info.model_dump().values())
         try:
-            if test:
-                answer: str | None = (
-                    content.split("<answer>")[1].split("</answer>")[0]
-                    if "<answer>" in content
-                    else content
-                )
-            else:
-                answer = extract_thought_answer_strict(content, reasoning=reasoning)[1]
+            answer: str | None = (
+                extract_answer_loose(content)
+                if test
+                else extract_thought_answer_strict(content, reasoning=reasoning)[1]
+            )
             if answer is not None:
                 # During test time, see if full SMILES string was given as input
                 if problem_type == "valid_mol_eval" and test:
