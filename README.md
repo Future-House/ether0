@@ -163,9 +163,8 @@ from lmi import LiteLLMModel
 from tqdm.asyncio import tqdm_asyncio as asyncio
 
 from ether0.data import get_problem_category
-from ether0.model_prompts import LOOSE_XML_ANSWER_USER_PROMPT, extract_answer_loose
-from ether0.models import RewardFunctionInfo
-from ether0.rewards import EVAL_FUNCTIONS
+from ether0.model_prompts import LOOSE_XML_ANSWER_USER_PROMPT
+from ether0.rewards import accuracy_reward
 
 # Add LLM prompt of your making to the dataset
 test_ds = load_dataset("futurehouse/ether0-benchmark", split="test").map(
@@ -180,13 +179,17 @@ results = await asyncio.gather(
 )
 
 # Compute rewards
-per_category_rewards = defaultdict(list)
-for row, result in zip(test_ds, results, strict=True):
-    reward_info = RewardFunctionInfo.model_validate(row["solution"])
-    yhat = extract_answer_loose(result[0].text)
-    reward = EVAL_FUNCTIONS[reward_info.fxn_name](yhat=yhat, y=reward_info.answer_info)
-    per_category_rewards[get_problem_category(reward_info.problem_type)].append(reward)
+rewards = accuracy_reward(
+    completions=[result[0].text for result in results],
+    solution=[row["solution"] for row in test_ds],
+    reasoning=False,
+    test=True,  # Use test flag for third party LLMs using loose prompt
+)
 
+# Aggregate rewards by problem category for understandability
+per_category_rewards = defaultdict(list)
+for prob_type, reward in zip(test_ds["problem_type"], rewards, strict=True):
+    per_category_rewards[get_problem_category(prob_type)].append(reward)
 for category, rewards in sorted(per_category_rewards.items()):
     print(
         f"In category {category!r} of {len(rewards)} questions,"
