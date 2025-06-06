@@ -182,9 +182,13 @@ results = await asyncio.gather(
 # Compute rewards
 per_category_rewards = defaultdict(list)
 for row, result in zip(test_ds, results, strict=True):
+    # NOTE: you can also use `ether0.rewards.accuracy_reward`,
+    # but we decided to go a bit "lower level" for this demo
     reward_info = RewardFunctionInfo.model_validate(row["solution"])
     yhat = extract_answer_loose(result[0].text)
-    reward = EVAL_FUNCTIONS[reward_info.fxn_name](yhat=yhat, y=reward_info.answer_info)
+    reward = EVAL_FUNCTIONS[reward_info.fxn_name](
+        yhat=yhat, y=reward_info.answer_info, test=True
+    )
     per_category_rewards[get_problem_category(reward_info.problem_type)].append(reward)
 
 for category, rewards in sorted(per_category_rewards.items()):
