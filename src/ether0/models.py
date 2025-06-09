@@ -1,5 +1,5 @@
 import re
-from collections.abc import Collection
+from collections.abc import Callable, Collection, Mapping
 from enum import StrEnum, auto
 from typing import Any
 
@@ -104,16 +104,14 @@ class QAExample(BaseModel):
     )
 
 
-def filter_problem_types(
-    dataset: TDataset, problem_types: str | Collection[str] | None
-) -> TDataset:
-    """Filter a dataset by problem types.
+def make_problem_types_filter(
+    problem_types: str | Collection[str], type_col: str
+) -> Callable[[Mapping[str, Any]], bool]:
+    """Make a filtration function to filter a dataset by problem types.
 
     Args:
-        dataset: The dataset to filter. Can be a single Dataset or a DatasetDict.
         problem_types: A string or collection of strings specifying the problem
             types to filter by.
-            - If None, the original dataset is returned.
             - If a string or a collection of strings:
                 - Strings starting with "re:" are treated as regex patterns.
                   If a regex filter is provided, then it must be the only filter.
@@ -121,21 +119,14 @@ def filter_problem_types(
                 - Other strings are treated as exact problem types to include.
                 - Mixing inclusion and exclusion rules (e.g. ["type_a", "!type_b"])
                   is not allowed.
+        type_col: The column name in the dataset that contains the problem type.
 
     Returns:
-        The filtered dataset.
+        Callable that returns True to keep a row, otherwise False to filter it out.
     """
-    if problem_types is None:
-        return dataset
     if isinstance(problem_types, str):  # Assume single problem type as a string
         problem_types = [problem_types]
     problem_types = {pt.strip() for pt in problem_types}
-
-    columns = (
-        next(iter(dataset.values())) if isinstance(dataset, DatasetDict) else dataset
-    ).column_names
-    # ether0-benchmark uses 'problem_type'; some variants may use 'type'
-    type_col = "problem_type" if "problem_type" in columns else "type"
 
     if any(pt.startswith("re:") for pt in problem_types):
         # A regex was passed in
@@ -170,4 +161,31 @@ def filter_problem_types(
             def filter_func(x):
                 return x[type_col] not in invalid_problem_types
 
-    return dataset.filter(filter_func, desc="Filtering problem types")
+    return filter_func
+
+
+def filter_problem_types(
+    dataset: TDataset, problem_types: str | Collection[str] | None
+) -> TDataset:
+    """Filter a dataset by problem types.
+
+    Args:
+        dataset: The dataset to filter. Can be a single Dataset or a DatasetDict.
+        problem_types: See make_problem_types_filter.__doc__.
+
+    Returns:
+        The filtered dataset.
+    """
+    if problem_types is None:
+        return dataset
+
+    columns = (
+        next(iter(dataset.values())) if isinstance(dataset, DatasetDict) else dataset
+    ).column_names
+    # ether0-benchmark uses 'problem_type'; some variants may use 'type'
+    type_col = "problem_type" if "problem_type" in columns else "type"
+
+    return dataset.filter(
+        make_problem_types_filter(problem_types, type_col),
+        desc="Filtering problem types",
+    )
