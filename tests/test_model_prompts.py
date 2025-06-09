@@ -5,9 +5,27 @@ from ether0.model_prompts import (
     ANSWER_START,
     THINK_END,
     THINK_START,
+    ProblemPrompt,
     extract_answer_loose,
     extract_thought_answer_strict,
 )
+
+
+def test_problem_prompt() -> None:
+    none_prompt = ProblemPrompt.NONE.get_prompt()
+    assert isinstance(none_prompt, str)
+    assert "think" not in none_prompt
+    assert "answer" not in none_prompt
+
+    answer_prompt = ProblemPrompt.ANSWER.get_prompt()
+    assert isinstance(answer_prompt, str)
+    assert "think" not in answer_prompt
+    assert "answer" in answer_prompt
+
+    think_answer_prompt = ProblemPrompt.THINK_ANSWER.get_prompt()
+    assert isinstance(think_answer_prompt, str)
+    assert "think" in think_answer_prompt
+    assert "answer" in think_answer_prompt
 
 
 @pytest.mark.parametrize(
