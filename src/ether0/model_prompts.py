@@ -86,9 +86,9 @@ class ProblemPrompt(Enum):  # Use Enum over StrEnum for trl.TrlParser compatibil
             case ProblemPrompt.NONE:
                 return ""
             case ProblemPrompt.THINK_ANSWER:
-                return XMLAnswerPrompts.REASONING_ANSWER
+                return XMLAnswerPrompts.REASONING_ANSWER.value
             case ProblemPrompt.ANSWER:
-                return XMLAnswerPrompts.ANSWER_ONLY
+                return XMLAnswerPrompts.ANSWER_ONLY.value
             case _:
                 assert_never(self)
 
