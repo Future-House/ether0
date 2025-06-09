@@ -134,7 +134,7 @@ def filter_problem_types(
     columns = (
         next(iter(dataset.values())) if isinstance(dataset, DatasetDict) else dataset
     ).column_names
-    # molrqa uses 'problem_type'; t[-r1] use 'type'
+    # ether0-benchmark uses 'problem_type'; some variants may use 'type'
     type_col = "problem_type" if "problem_type" in columns else "type"
 
     if any(pt.startswith("re:") for pt in problem_types):

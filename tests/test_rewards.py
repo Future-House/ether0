@@ -171,7 +171,7 @@ def test_valid_mol_eval(yhat: str, y: str, expected: float) -> None:
             "CCCO",
             1.0,
             None,
-            id="molrqa2-train-e54b6a29-143e-5373-a3bd-007b8800d31e",
+            id="exact-match",
         ),
         pytest.param(
             "CCCO",
@@ -416,15 +416,15 @@ def test_formula_diff(f1: str, f2: str, expected: float) -> None:
             "O=C(/C=C/C1=CC=CC=C1)OC[C@H]1O[C@@H](O[C@@H]2O[C@@H]3C[C@H]4[C@H](O)[C@@H](O)[C@@](O)(CO3)[C@@H]24)[C@H](O)[C@@H](O)[C@@H]1O",
             None,
             1,
-            id="molrqa2-train-1",
+            id="passing-1",
         ),
         pytest.param(
             "CC(C)C[C@H](NC(=O)[C@H](Cc1c[nH]cn1)NC(=O)[C@H](Cc1ccccc1)NC(=O)OC(C)(C)C)[C@@H](O)[C@@H](O)CC(C)C",
             None,
             1,
-            id="molrqa2-train-2",
+            id="passing-2",
         ),
-        pytest.param("CCCCCBr", "CCCCCBr", 1, id="molrqa2-train-3"),
+        pytest.param("CCCCCBr", "CCCCCBr", 1, id="passing-3"),
     ],
 )
 def test_is_reasonable_ring_system(

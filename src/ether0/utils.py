@@ -27,17 +27,17 @@ TDataset = TypeVar("TDataset", bound=Dataset | DatasetDict)
             (
                 # On 2/11/2025 James kept seeing on the g3 server cluster:
                 # > huggingface_hub.errors.HfHubHTTPError: 504 Server Error: Gateway Time-out for
-                # > url: https://huggingface.co/api/datasets/futurehouse/molrqa/paths-info/abc123
+                # > url: https://huggingface.co/api/datasets/org/repo/paths-info/abc123
                 # And on 3/14 James saw this on the g3 server cluster:
                 # > huggingface_hub.errors.HfHubHTTPError: 502 Server Error: Bad Gateway for
-                # > url: https://huggingface.co/api/datasets/futurehouse/molrqa2/paths-info/abc123
+                # > url: https://huggingface.co/api/datasets/org/repo/paths-info/abc123
                 isinstance(x, HfHubHTTPError)
                 and x.response.status_code
                 in {HTTPStatus.BAD_GATEWAY.value, HTTPStatus.GATEWAY_TIMEOUT.value}
             )
             # On 4/14/2025 James kept seeing on the g5 server cluster:
             # > datasets.exceptions.DatasetNotFoundError:
-            # > Dataset 'futurehouse/molrqa2' doesn't exist on the Hub or cannot be accessed.
+            # > Dataset 'org/repo' doesn't exist on the Hub or cannot be accessed.
             or isinstance(x, DatasetNotFoundError)
         )
     ),
