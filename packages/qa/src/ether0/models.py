@@ -16,7 +16,15 @@ from lmi import LiteLLMModel
 from pydantic import Field
 from tqdm.asyncio import tqdm_asyncio
 
-REPO_QA_JSONL_PATH = Path(__file__).parent / "repo_qa.jsonl"
+ETHER0_QA_PACKAGE_DIR = Path(__file__).parent
+REPO_QA_JSONL_PATH = ETHER0_QA_PACKAGE_DIR / "repo_qa.jsonl"
+
+REPO_ROOT_DIR = ETHER0_QA_PACKAGE_DIR.parent.parent.parent.parent
+README_PATH = REPO_ROOT_DIR / "README.md"
+
+ETHER0_PACKAGE_DIR = REPO_ROOT_DIR / "src" / "ether0"
+REWARDS_PATH = ETHER0_PACKAGE_DIR / "rewards.py"
+CHAT_PATH = ETHER0_PACKAGE_DIR / "chat.py"
 
 
 LLM_SCORE_EVAL_CONFIG: dict[str, Any] = {
@@ -80,14 +88,26 @@ OPEN_ANSWER_PREFIX = (
 )
 
 
+def format_prompt(question: str, *paths: Path) -> str:
+    """Format a message with optional context files."""
+    return "\n\n".join(
+        [OPEN_ANSWER_PREFIX]
+        + [
+            "For context, here is the"
+            f" {path.name}:\n\n{path.read_text(encoding='utf-8').strip()}"
+            for path in paths
+        ]
+        + [question]
+    )
+
+
 async def run_grade_eval(
-    model: LiteLLMModel, qa: Ether0OpenAnswer
+    model: LiteLLMModel, qa: Ether0OpenAnswer, *paths: Path
 ) -> MultipleChoiceEvaluation:
     # NOTE: this code has many extra locals to enable convenient debugging
     question, correct_answer = qa.question_prompt, qa.ideal_answer  # noqa: F841
-    llm_result = await model.acompletion(
-        [Message(content=f"{OPEN_ANSWER_PREFIX}\n\n{question}")]
-    )
+    prompt = format_prompt(question, *paths)
+    llm_result = await model.acompletion([Message(content=prompt)])
     if len(llm_result) != 1 or not llm_result[0].text:
         raise NotImplementedError(f"Unexpected shape of LLM result {llm_result}.")
     proposed_answer = llm_result[0].text
@@ -96,7 +116,7 @@ async def run_grade_eval(
     return evaluation
 
 
-async def run_eval() -> tuple[float, float]:
+async def run_eval(*paths: Path) -> tuple[float, float]:
     """Evaluate on the eval dataset and return a two-tuple of accuracy and precision."""
     open_answers = [
         Ether0OpenAnswer.from_ds(row)
@@ -105,15 +125,27 @@ async def run_eval() -> tuple[float, float]:
 
     model = LiteLLMModel(name="gpt-4o")
     evaluations = await tqdm_asyncio.gather(
-        *(run_grade_eval(model, oa) for oa in open_answers),
+        *(run_grade_eval(model, oa, *paths) for oa in open_answers),
         desc="Running evaluation",
+        ncols=0,
     )
     return MultipleChoiceEvaluation.calculate_accuracy_precision(evaluations)
 
 
 async def main() -> None:
-    accuracy, precision = await run_eval()
-    print(f"Accuracy: {accuracy:.2%}, Precision: {precision:.2%}.")
+    for world in (
+        (),
+        (README_PATH,),
+        (REWARDS_PATH,),
+        (README_PATH, REWARDS_PATH),
+        (README_PATH, REWARDS_PATH, CHAT_PATH),
+    ):
+        accuracy, precision = await run_eval(*world)
+        world_name = " + ".join([w.name for w in world]) if world else "Null"
+        print(
+            f"{world_name} world..."
+            f" accuracy: {accuracy:.2%}, precision: {precision:.2%}."
+        )
 
 
 if __name__ == "__main__":
