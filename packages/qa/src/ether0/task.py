@@ -21,6 +21,7 @@ from paperqa.settings import (
     MaybeSettings,
     ParsingSettings,
 )
+from paperqa_server.settings import INTERNAL_CASCADING_MODEL_ORDER
 from tqdm.asyncio import tqdm_asyncio
 
 from ether0.evaluation import Ether0RepoOpenAnswer, Ether0RepoTaskSplit
@@ -158,6 +159,9 @@ async def main() -> None:
     settings = Settings(
         parsing=parsing_settings,
         agent=AgentSettings(index=index_settings),
+        embedding=INTERNAL_CASCADING_MODEL_ORDER[  # Match what platform uses
+            "embedding"
+        ][0],
     )
 
     # Force index build up front

@@ -25,9 +25,11 @@ dependencies = [
     "datasets",
     "fhaviary[litqa]>=0.19",  # Pin for Python 3.13 compatibility
     "fhlmi>=0.26",  # Pin for Python 3.13 compatibility
+    "futurehouse-client>=0.3.20.dev63",  # Pin for WorldModel primitive and FUTUREHOUSE_API_KEY
     "ldp>=0.26",  # Pin for Python 3.13 compatibility
     "litellm>=1.60.0",  # Pin for LoggingCallbackManager refactor
     "paper-qa @ git+https://github.com/Future-House/paper-qa.git@working-with-py-typed",  # For py.typed support
+    "paperqa-server[litqa_v2] @ git+ssh://git@github.com/Future-House/paperqa-server.git@world-models",  # For Andrew's WorldModel env
     "pydantic>=2",  # Pin to keep recent
     "tqdm",
 ]
@@ -40,6 +42,11 @@ requires-python = ">=3.11"
 [project.optional-dependencies]
 dev = [
     "ether0.qa[typing]",
+    "pytest",
+    "pytest-asyncio",
+    "pytest-sugar",
+    "pytest-timer[colorama]",
+    "pytest-xdist",
 ]
 typing = [
     "anyio",
