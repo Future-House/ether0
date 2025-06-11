@@ -90,7 +90,7 @@ preview = true
 [tool.codespell]
 check-filenames = true
 check-hidden = true
-ignore-words-list = "amination,astroid,ser"
+ignore-words-list = "aadd,amination,astroid,ser"
 
 [tool.coverage]
 

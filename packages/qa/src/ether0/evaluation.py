@@ -15,6 +15,7 @@ from pydantic import Field
 
 ETHER0_QA_PACKAGE_DIR = pathlib.Path(__file__).parent
 REPO_QA_EVAL_JSONL_PATH = ETHER0_QA_PACKAGE_DIR / "repo_qa_eval.jsonl"
+REPO_QA_STEP0_JSONL_PATH = ETHER0_QA_PACKAGE_DIR / "repo_qa_s0.jsonl"
 
 
 LLM_SCORE_EVAL_CONFIG: dict[str, Any] = {
@@ -73,9 +74,12 @@ class Ether0RepoOpenAnswer(MultipleChoiceQuestion):
 
 
 class Ether0RepoTaskSplit(StrEnum):
+    TRAIN_0 = "repo_qa_s0"
     EVAL = "repo_qa_eval"
 
     def get_task(self) -> Dataset:
+        if self == Ether0RepoTaskSplit.TRAIN_0:
+            return Dataset.from_json(str(REPO_QA_STEP0_JSONL_PATH))
         if self == Ether0RepoTaskSplit.EVAL:
             return Dataset.from_json(str(REPO_QA_EVAL_JSONL_PATH))
         assert_never(self)

@@ -23,8 +23,11 @@ classifiers = [
 ]
 dependencies = [
     "datasets",
-    "fhaviary>=0.19",  # Pin for Python 3.13 compatibility
+    "fhaviary[litqa]>=0.19",  # Pin for Python 3.13 compatibility
     "fhlmi>=0.26",  # Pin for Python 3.13 compatibility
+    "ldp>=0.26",  # Pin for Python 3.13 compatibility
+    "litellm>=1.60.0",  # Pin for LoggingCallbackManager refactor
+    "paper-qa @ git+https://github.com/Future-House/paper-qa.git@working-with-py-typed",  # For py.typed support
     "pydantic>=2",  # Pin to keep recent
     "tqdm",
 ]
@@ -39,6 +42,7 @@ dev = [
     "ether0.qa[typing]",
 ]
 typing = [
+    "anyio",
     "types-tqdm",
 ]
 
