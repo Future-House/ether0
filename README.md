@@ -14,7 +14,7 @@ _ether0: a scientific reasoning model, dataset, and reward functions for chemist
 
 # ether0 Reward Model
 
-This repo contains the reward model for evaluating ether0 and similar models, along with utilities for working with the verifiable rewards in [our benchmark](https://huggingface.co/datasets/futurehouse/ether0).
+This repo contains the reward model for evaluating ether0 and similar models, along with utilities for working with the verifiable rewards in [our benchmark](https://huggingface.co/datasets/futurehouse/ether0-benchmark).
 
 ## Overview
 
