@@ -55,7 +55,7 @@ baselines = [
     "ipython",
 ]
 dev = [
-    "ether0[add-tokens,typing]",
+    "ether0[add-tokens,lighteval,typing]",
     "huggingface-hub[cli]",  # For login inside of CI
     "ipython>=8",  # Pin to keep recent
     "mypy>=1.8",  # For addition of mutable-override
@@ -68,6 +68,10 @@ dev = [
     "pytest-xdist",
     "refurb>=2",  # Pin to keep recent
     "typeguard",
+]
+lighteval = [
+    "aenum",
+    "lighteval[litellm]>=0.10",  # Pin to keep recent
 ]
 typing = [
     "types-regex",
@@ -169,8 +173,10 @@ warn_unused_ignores = true
 ignore_missing_imports = true
 # Per-module configuration options
 module = [
+    "aenum",  # SEE: https://github.com/ethanfurman/aenum/issues/10
     "datasets.*",  # SEE: https://github.com/huggingface/datasets/issues/3841
     "huggingface_hub.*",  # SEE: https://github.com/huggingface/huggingface_hub/issues/1662
+    "lighteval.*",  # SEE: https://github.com/huggingface/lighteval/issues/749
     "molbloom",  # SEE: https://github.com/whitead/molbloom/issues/29
     "molsol",  # SEE: https://github.com/maykcaldas/molsol/issues/6
     "onmt.*",
