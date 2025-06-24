@@ -25,10 +25,10 @@ authors:
     family-names: White
 identifiers:
   - type: doi
-    #     value: 10.48550/arXiv.2412.21154
+    value: 10.48550/arXiv.2506.17238
     description: ArXiv DOI
   - type: url
-    #     value: https://arxiv.org/abs/2412.21154
+    value: https://arxiv.org/abs/2506.17238
     description: ArXiv abstract
 repository-code: https://github.com/Future-House/ether0
 keywords:
@@ -59,8 +59,8 @@ preferred-citation:
     - given-names: Andrew D.
       family-names: White
   date-published: 2025-06-04
-  doi: 10.48550/arXiv.2412.21154
+  doi: 10.48550/arXiv.2506.17238
   journal: preprint
   title: "Training a Scientific Reasoning Model for Chemistry"
   type: article
-#   url: https://arxiv.org/abs/2412.21154
+  url: https://arxiv.org/abs/2506.17238
