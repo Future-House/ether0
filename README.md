@@ -1,10 +1,11 @@
 [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Future-House/ether0)
+[![arXiv](https://img.shields.io/badge/arXiv-2506.17238-b31b1b.svg)](https://arxiv.org/abs/2506.17238)
 [![Project Status: Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 ![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)
+
 [![Tests](https://github.com/Future-House/ether0/actions/workflows/lint-test.yaml/badge.svg)](https://github.com/Future-House/ether0/actions)
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
 [![python](https://img.shields.io/badge/python-3.11+-blue?style=flat&logo=python&logoColor=white)](https://www.python.org)
-
 [![Model on HF](https://huggingface.co/datasets/huggingface/badges/resolve/main/model-on-hf-md-dark.svg)](https://huggingface.co/futurehouse/ether0)
 [![Dataset on HF](https://huggingface.co/datasets/huggingface/badges/resolve/main/dataset-on-hf-md-dark.svg)](https://huggingface.co/datasets/futurehouse/ether0-benchmark)
 
