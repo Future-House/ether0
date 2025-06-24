@@ -1,10 +1,12 @@
+# ether0 Reward Model
+
 [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Future-House/ether0)
 [![arXiv](https://img.shields.io/badge/arXiv-2506.17238-b31b1b.svg)](https://arxiv.org/abs/2506.17238)
 [![Project Status: Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 ![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)
 
 [![Tests](https://github.com/Future-House/ether0/actions/workflows/lint-test.yaml/badge.svg)](https://github.com/Future-House/ether0/actions)
-<a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![python](https://img.shields.io/badge/python-3.11+-blue?style=flat&logo=python&logoColor=white)](https://www.python.org)
 [![Model on HF](https://huggingface.co/datasets/huggingface/badges/resolve/main/model-on-hf-md-dark.svg)](https://huggingface.co/futurehouse/ether0)
 [![Dataset on HF](https://huggingface.co/datasets/huggingface/badges/resolve/main/dataset-on-hf-md-dark.svg)](https://huggingface.co/datasets/futurehouse/ether0-benchmark)
@@ -13,9 +15,9 @@
 
 _ether0: a scientific reasoning model, dataset, and reward functions for chemistry._
 
-# ether0 Reward Model
-
-This repo contains the reward model for evaluating ether0 and similar models, along with utilities for working with the verifiable rewards in [our benchmark](https://huggingface.co/datasets/futurehouse/ether0-benchmark).
+This repo contains the reward model for evaluating ether0 and similar models,
+along with utilities for working with the verifiable rewards in
+[our benchmark](https://huggingface.co/datasets/futurehouse/ether0-benchmark).
 
 ## Overview
 
@@ -51,7 +53,8 @@ This repo contains several packages:
 
 ### Open Weights
 
-Please see our open-source weights on Hugging Face: https://huggingface.co/futurehouse/ether0
+Please see our open-source weights on Hugging Face:
+<https://huggingface.co/futurehouse/ether0>
 
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -62,7 +65,8 @@ tokenizer = AutoTokenizer.from_pretrained("futurehouse/ether0")
 
 ### Open Test Set
 
-Please see our open-source benchmark (test set) on Hugging Face: https://huggingface.co/datasets/futurehouse/ether0-benchmark
+Please see our open-source benchmark (test set) on Hugging Face:
+<https://huggingface.co/datasets/futurehouse/ether0-benchmark>
 
 ```python
 from datasets import load_dataset
@@ -148,7 +152,8 @@ ETHER0_REMOTES_API_TOKEN=abc123 ether0-serve
 Next, start `ipython` with the relevant environment variables set:
 
 ```bash
-ETHER0_REMOTES_API_BASE_URL="http://127.0.0.1:8000" ETHER0_REMOTES_API_TOKEN=abc123 ipython
+ETHER0_REMOTES_API_BASE_URL="http://127.0.0.1:8000" ETHER0_REMOTES_API_TOKEN=abc123 \
+    ipython
 ```
 
 And run the following Python code:
