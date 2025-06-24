@@ -105,6 +105,15 @@ branch = true
 # This is designed to be invoked from within the test directory
 command_line = "-m pytest"
 
+[tool.markdownlint]
+no-inline-html = false
+
+[tool.markdownlint.line-length]
+code_block_line_length = 88  # Match ruff line-length
+line_length = 120  # Match ruff max-doc-length
+stern = true
+tables = false
+
 [tool.mypy]
 # Type-checks the interior of functions without type annotations.
 check_untyped_defs = true
