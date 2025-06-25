@@ -14,13 +14,15 @@ curl --location --output src/ether0/USPTO480k_model_step_400000.pt \
 
 Or more manually:
 
-1. Go to this notebook: https://github.com/schwallergroup/ai4chem_course/blob/main/notebooks/07%20-%20Reaction%20Prediction/template_free.ipynb
+1. Go to [this notebook][1]
 2. Download the `USPTO480k_model_step_400000.pt`
    linked in the `trained_model_url` variable's linked Google Drive file:
-   https://drive.google.com/uc?id=1ywJCJHunoPTB5wr6KdZ8aLv7tMFMBHNy
+   <https://drive.google.com/uc?id=1ywJCJHunoPTB5wr6KdZ8aLv7tMFMBHNy>
 3. Set the environment variable `ETHER0_REMOTES_MOLTRANS_MODEL_PATH`
    to the downloaded PyTorch model's location,
    or place the model in the default checked `ether0` source code folder (`src/ether0`).
+
+[1]: https://github.com/schwallergroup/ai4chem_course/blob/main/notebooks/07%20-%20Reaction%20Prediction/template_free.ipynb
 
 ## Serving
 
@@ -31,6 +33,6 @@ To run the server:
 
 ```bash
 ETHER0_REMOTES_API_TOKEN="abc123" \
-ETHER0_REMOTES_MOLTRANS_MODEL_PATH="/path/to/downloaded/USPTO480k_model_step_400000.pt" \
+ETHER0_REMOTES_MOLTRANS_MODEL_PATH="/path/to/USPTO480k_model_step_400000.pt" \
 ether0-serve
 ```
