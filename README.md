@@ -134,6 +134,19 @@ or in your terminal via `chafa valid_molecule.svg`
 
 ![valid molecule](docs/assets/valid_molecule.svg)
 
+Similarly, one can visualize reactions:
+
+```python
+from ether0.data import draw_reaction
+
+# Source: ether0-benchmark's test split's question 41251b01-7291-56a0-9030-ea51bab03a4c
+rxn_smiles = "CC1CNCC1c1nc2c(cnn2C(C)C)c(=O)[nH]1.COc1ccc(C=O)cn1>>"
+
+rxn_text = draw_reaction(rxn_smiles)
+with open("reaction.svg", "w") as f:
+    f.write(rxn_text)
+```
+
 ### Benchmark
 
 Here is a sample baseline of
