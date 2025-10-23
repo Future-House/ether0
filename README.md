@@ -113,7 +113,7 @@ assert valid_mol_eval(valid_completion_smiles, partial_smiles)
 
 ### Visualization
 
-If it helps, you can visualize the molecules:
+If it helps, you can visualize molecules:
 
 ```python
 from ether0.data import draw_molecule
