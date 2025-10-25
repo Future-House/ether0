@@ -147,6 +147,10 @@ with open("reaction.svg", "w") as f:
     f.write(rxn_text)
 ```
 
+#### Third Party Visualizers
+
+- [SmilesDrawer Playground](https://smilesdrawer.surge.sh/playground.html)
+
 ### Benchmark
 
 Here is a sample baseline of
