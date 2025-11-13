@@ -42,7 +42,7 @@ requires-python = ">=3.11"
 dev = [
     "ether0",
     "ether0.remotes[serve]",
-    "tensorboard>=2.19",  # Indirect dependency we pin to keep recent
+    "tensorboard>=2.18",  # Indirect dependency we pin to keep recent
 ]
 serve = ["uvicorn"]
 
